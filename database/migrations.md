@@ -1,0 +1,20 @@
+# Database migrations
+
+The server uses Alembic/Flask-Migrate with PostgreSQL. Back up an existing database, then run migrations in order. For a fresh database, `flask --app app db upgrade` applies all revisions. For a staged review, apply each revision individually:
+
+| Order | Revision | Change |
+| --- | --- | --- |
+| 1 | `4280997db745` | Media records |
+| 2 | `b47f19d54a13` | Copies and loans |
+| 3 | `c8ad12e960b0` | Existing constraints |
+| 4 | `3d636ddd36b6` | Condition and activity |
+| 5 | `5a24f7c7e001` | Archive and delete state |
+| 6 | `6b35f8d8e002` | Legacy comments and stars |
+| 7 | `7c46a9e9f003` | Authors, publishers, countries |
+| 8 | `8d57bafa0004` | Rental workflow |
+| 9 | `9e68cb0b0005` | Consolidated reviews |
+| 10 | `af79dc1c0006` | Shared audit fields |
+| 11 | `b8e0c71a0007` | Canonical user roles |
+| 12 | `c9f1d82b0008` | Persistent permission, role, and group management |
+
+Run `flask --app app db upgrade REVISION` for each revision in the table. Afterward, `flask --app app db check` should report no pending schema changes. The review migration preserves legacy standalone entries as archived history. The access migration seeds the built-in permission keys and roles.
