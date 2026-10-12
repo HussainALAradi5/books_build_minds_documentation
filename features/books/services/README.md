@@ -19,3 +19,5 @@ Service functions return Flask responses unless described as an internal helper.
 | `book_service.py` | `purchase_book(slug)` | Add ownership, create a receipt and buy/sell activity records in one transaction. | 404 missing book; 409 already purchased; 401/403 missing access |
 
 See [endpoint mapping](../endpoints/README.md) and [shared response rules](../../../architecture/api-contract.md).
+
+See [book printing services, endpoints, contracts, and scanner setup](../printing/README.md).

@@ -16,3 +16,5 @@ All paths are relative to the Flask origin. The controller registers each route 
 | POST | `/api/book/<string:slug>/purchase` | `Permission.PURCHASE_WRITE_ONE` | `book_service.purchase_book` | Add ownership, create a receipt and buy/sell activity records in one transaction. | 404 missing book; 409 already purchased; 401/403 missing access |
 
 See [service signatures and rules](../services/README.md).
+
+See [book printing services, endpoints, contracts, and scanner setup](../printing/README.md).
