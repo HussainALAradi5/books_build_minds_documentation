@@ -1,6 +1,6 @@
 # Local demo accounts and permissions
 
-Run `python -m flask --app app seed-demo --test-accounts` from the [server repository](../../server/README.md) after migrations. This development-only command updates the three active demo passwords to the values below. The seed command refuses to run when `APP_ENV=production`.
+Run `python -m flask --app app seed-demo --test-accounts` from the [server repository](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) after migrations. This development-only command updates the three active demo passwords to the values below. The seed command refuses to run when `APP_ENV=production`.
 
 | Account role | Username | Password | What to test |
 | --- | --- | --- | --- |
@@ -28,8 +28,8 @@ Employee and client start with the same member permission set. An administrator 
 
 ## Walkthrough
 
-1. Open the [client login page](../../client/README.md), sign in with one account, and inspect **My profile**.
-2. Use the [illustrated workflow](../../client/docs/screenshots/workflows/README.md) to compare the actions visible to client, employee, and administrator.
+1. Open the [client login page](https://github.com/HussainALAradi5/books_build_minds_client_side/blob/main/README.md), sign in with one account, and inspect **My profile**.
+2. Use the [illustrated workflow](https://github.com/HussainALAradi5/books_build_minds_client_side/blob/main/docs/screenshots/workflows/README.md) to compare the actions visible to client, employee, and administrator.
 3. Sign out before switching accounts. For purchases and reviews, choose a book that the account has not bought or reviewed yet.
 
 The screenshots show a completed purchase, loan, and review for **Sapiens** in the local preview. A newly seeded database has the accounts and catalog; those transactions are created by following the walkthrough.
