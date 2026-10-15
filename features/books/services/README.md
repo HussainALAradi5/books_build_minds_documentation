@@ -16,7 +16,7 @@ Service functions return Flask responses unless described as an internal helper.
 | `book_service.py` | `create_book()` | Validate book input, resolve author and publisher, and insert a unique book. | 400 invalid fields; 409 duplicate title or ISBN; 401/403 missing access |
 | `book_service.py` | `update_book(slug)` | Edit supported fields while preserving unique names and active-loan capacity. | 400 invalid fields; 404 missing book; 409 duplicate or insufficient copies |
 | `book_service.py` | `delete_book(slug)` | Soft delete a book only when no copies are on active loan. | 404 missing book; 409 active loan; 401/403 missing access |
-| `book_service.py` | `purchase_book(slug)` | Add ownership, create a receipt and buy/sell activity records in one transaction. | 404 missing book; 409 already purchased; 401/403 missing access |
+| `book_service.py` | `purchase_book(slug)` | Legacy unpaid purchase disabled; use verified transaction checkout. | 409 use checkout |
 
 See [endpoint mapping](../endpoints/README.md) and [shared response rules](../../../architecture/api-contract.md).
 

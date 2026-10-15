@@ -18,3 +18,9 @@ The server uses Alembic/Flask-Migrate with PostgreSQL. Back up an existing datab
 | 12 | `c9f1d82b0008` | Persistent permission, role, and group management |
 
 Run `flask --app app db upgrade REVISION` for each revision in the table. Afterward, `flask --app app db check` should report no pending schema changes. The review migration preserves legacy standalone entries as archived history. The access migration seeds the built-in permission keys and roles.
+
+## Payment snapshot migration: d0a2e93c0009
+
+Follows `c9f1d82b0008`. Creates transaction/event tables; adds immutable receipt snapshots, transaction references, loan policy version and user token version. Existing receipt amounts stay NULL because historical payment values cannot be reconstructed reliably. Upgrade and schema drift checks were exercised on a disposable PostgreSQL clone of the previous schema, including downgrade/re-upgrade. Downgrade refuses once financial transactions exist.
+
+Back up first, then run `python -m flask --app app db upgrade` and `python -m flask --app app db check` in the server environment. Audit historical inventory: sales, active loans and pending payments now all consume copies. Do not stamp an existing database forward to skip schema changes.

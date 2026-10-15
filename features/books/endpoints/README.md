@@ -13,7 +13,7 @@ All paths are relative to the Flask origin. The controller registers each route 
 | GET | `/api/book/<string:slug>` | `Public` | `book_service.get_book` | Return an active, visible book by slug. | 404 book missing, archived, or deleted |
 | PUT | `/api/book/<string:slug>` | `Admin role AND Permission.BOOK_EDIT_ANY` | `book_service.update_book` | Edit supported fields while preserving unique names and active-loan capacity. | 400 invalid fields; 404 missing book; 409 duplicate or insufficient copies |
 | DELETE | `/api/book/<string:slug>` | `Admin role AND Permission.BOOK_DELETE_ANY` | `book_service.delete_book` | Soft delete a book only when no copies are on active loan. | 404 missing book; 409 active loan; 401/403 missing access |
-| POST | `/api/book/<string:slug>/purchase` | `Permission.PURCHASE_WRITE_ONE` | `book_service.purchase_book` | Add ownership, create a receipt and buy/sell activity records in one transaction. | 404 missing book; 409 already purchased; 401/403 missing access |
+| POST | `/api/book/<slug>/purchase` | `Permission.PURCHASE_WRITE_ONE` | `book_service.purchase_book` | Legacy unpaid purchase disabled; use `/api/transactions/checkout`. | 409 use checkout |
 
 See [service signatures and rules](../services/README.md).
 

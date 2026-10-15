@@ -29,6 +29,7 @@ The related repository links point to the published GitHub repositories.
 - [Media and profile pictures](features/media/README.md)
 - [Reviews](features/reviews/README.md)
 - [Receipts](features/receipts/README.md)
+- [Tap BHD sandbox payments and transactions](features/payments/README.md)
 - [Permissions, roles, and groups](features/access/README.md)
 
 ## Project guides
