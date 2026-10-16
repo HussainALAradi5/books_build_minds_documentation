@@ -9,7 +9,7 @@ Service functions return Flask responses unless described as an internal helper.
 | `book_service.py` | `filtered_books(options, include_archived)` | Build public or managed book query with text, publisher, condition, price, and sort. | 400 invalid condition, price, or sort |
 | `book_service.py` | `list_books()` | Return visible books with server pagination and sorting. | 400 invalid filter, page, or sort |
 | `book_service.py` | `list_managed_books()` | Return nondeleted books including archived items for inventory management. | 400 invalid filter, page, or sort; 401/403 missing access |
-| `book_service.py` | `export_books()` | Apply filters and produce up to 5,000 rows as PDF, XLSX, or CSV. | 400 unsupported format or filter; 401/403 missing access |
+| `book_service.py` | `export_books()` | Apply the public catalog filters, optionally intersect with 1–100 selected book IDs, and export up to 5,000 visible rows as PDF, XLSX, or CSV. Signed-in clients and administrators may export; import and bulk changes remain administrator-only. | 400 unsupported format/filter or invalid IDs; 401 missing session |
 | `book_service.py` | `import_books()` | Validate tabular rows, resolve authors and publishers, and commit imported books. | 400 malformed file or row; duplicate title or ISBN; 401/403 missing access |
 | `book_service.py` | `bulk_books()` | Archive, unarchive, or soft delete 1–100 selected books. | 400 invalid selection/action; 404 missing book; 409 active loan on delete |
 | `book_service.py` | `get_book(slug)` | Return an active, visible book by slug. | 404 book missing, archived, or deleted |
