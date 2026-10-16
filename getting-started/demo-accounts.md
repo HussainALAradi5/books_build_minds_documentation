@@ -24,7 +24,7 @@ Anonymous visitors may browse books and reviews, then register. Registration cre
 | Manage books, inventory, authors, publishers | No | No by default | No by default | Yes |
 | Manage permissions, roles, groups, and users | No | No | No | Yes |
 
-Employee and client start with the same member permission set. An administrator may add access roles or groups, so effective permissions can change. The access management page and API require the administrator account role. Review creation also requires purchase, and review edits/deletes require authorship or moderator permission.
+Employee and client start with the same member permission set. An administrator may add access roles or groups, so effective permissions can change. The access management page and API require the administrator account role. Review creation requires purchase. Only the review author can edit it; the author or an administrator can soft delete it.
 
 ## Walkthrough
 

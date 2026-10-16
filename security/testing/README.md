@@ -8,7 +8,7 @@ python -m unittest discover -s tests -v
 
 The tests use an isolated in-memory SQLite database. They cover profile ownership, registration role control, book permissions, image validation, profile image ownership, purchase-gated reviews, review owner/admin moderation, review/book ID matching, receipt ownership, soft deletion, and permission expressions.
 
-`test_delegated_permissions_cannot_bypass_admin_or_review_ownership` assigns privileged action permissions to an employee and verifies that book writes/import/bulk/media and another reader's review edit/delete still return 403. The author and administrator retain their intended review access.
+`test_delegated_permissions_cannot_bypass_admin_or_review_ownership` assigns privileged action permissions to an employee and verifies that book writes/import/bulk/media and another reader's review edit/delete still return 403. Only the review author can edit; the author and administrator can delete.
 
 For each new endpoint, add negative checks for anonymous requests, wrong account roles, wrong owners, deleted/archived records, malformed input, and repeated submissions as appropriate. Do not rely solely on successful administrator requests.
 

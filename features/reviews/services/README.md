@@ -10,7 +10,7 @@ Service functions return Flask responses unless described as an internal helper.
 | `reviews/review_service.py` | `my_review(slug)` | Return the current user's active review for a book. | 404 missing book; 401/403 missing access |
 | `reviews/review_service.py` | `add_review(slug)` | Require purchase and one active review; validate rating 1–5 and a 10-character comment; broadcast change. | 400 invalid rating/comment; 403 no purchase; 404 book; 409 duplicate |
 | `reviews/review_service.py` | `owned_review(slug, review_id, own_permission: Permission, any_permission: Permission)` | Load a review and enforce author ownership or the administrator account role combined with the any-review permission. | 403 not author/administrator; 404 missing review |
-| `reviews/review_service.py` | `edit_review(slug, review_id)` | Update permitted review fields and broadcast the result. | 400 invalid rating/comment; 403 not author/administrator; 404 review |
+| `reviews/review_service.py` | `edit_review(slug, review_id)` | Author updates review fields and broadcasts the result. | 400 invalid rating/comment; 403 not author; 404 review |
 | `reviews/review_service.py` | `delete_review(slug, review_id)` | Soft delete an authorized review and broadcast the result. | 403 not author/administrator; 404 review |
 
 See [endpoint mapping](../endpoints/README.md) and [shared response rules](../../../architecture/api-contract.md).
