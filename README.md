@@ -12,6 +12,18 @@ This repository documents the separate [client](https://github.com/HussainALArad
 
 The related repository links point to the published GitHub repositories.
 
+## Local demo users
+
+After applying server migrations, run `python -m flask --app app seed-demo --test-accounts` in the server repository. Then sign in through the client with one of these local test accounts:
+
+| Role | Username | Password | Access to try |
+| --- | --- | --- | --- |
+| Administrator | `demo_admin` | `LibraryAdmin2026!` | Manage books, inventory, imports, bulk actions, roles, and permissions |
+| Employee | `demo_employee` | `LibraryStaff2026!` | Reader workflows and own profile; admin pages are restricted by default |
+| Client | `demo_client` | `LibraryReader2026!` | Borrow, rent, return, purchase, download receipts, and review purchased books |
+
+The seeded `demo_visitor` account is inactive and has no login password. Anonymous visitors can browse and register. These credentials are for local demo data only; see the [full role and permission guide](getting-started/demo-accounts.md).
+
 ## How to use these docs
 
 1. Follow [local setup](getting-started/README.md) to start PostgreSQL, Flask, and Next.js.
