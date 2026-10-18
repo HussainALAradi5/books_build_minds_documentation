@@ -4,6 +4,7 @@ The server uses Alembic/Flask-Migrate with PostgreSQL. Back up an existing datab
 
 | Order | Revision | Change |
 | --- | --- | --- |
+| 0 | `01e7c4a00000` | Original user, book, purchase, receipt, review, and admin-request tables for a fresh database |
 | 1 | `4280997db745` | Media records |
 | 2 | `b47f19d54a13` | Copies and loans |
 | 3 | `c8ad12e960b0` | Existing constraints |
@@ -16,8 +17,12 @@ The server uses Alembic/Flask-Migrate with PostgreSQL. Back up an existing datab
 | 10 | `af79dc1c0006` | Shared audit fields |
 | 11 | `b8e0c71a0007` | Canonical user roles |
 | 12 | `c9f1d82b0008` | Persistent permission, role, and group management |
+| 13 | `d0a2e93c0009` | Payment transactions, receipt snapshots, loan policy, and session version |
+| 14 | `e47a2c9d0010` | Soft retire the obsolete `review:edit.any` permission; only authors may edit reviews |
 
 Run `flask --app app db upgrade REVISION` for each revision in the table. Afterward, `flask --app app db check` should report no pending schema changes. The review migration preserves legacy standalone entries as archived history. The access migration seeds the built-in permission keys and roles.
+
+The baseline revision makes a new database migratable from zero. Databases already at a later revision keep their current history; apply the new head normally. A clean in-memory SQLite upgrade through all revisions was verified on 2026-10-17. On 2026-10-18, the local PostgreSQL database was backed up, upgraded from `d0a2e93c0009` to `e47a2c9d0010`, and passed `flask db check` with no new upgrade operations. Repeat the backup, migration, and drift check against the actual deployment database before release.
 
 ## Payment snapshot migration: d0a2e93c0009
 
