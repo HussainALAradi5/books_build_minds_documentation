@@ -19,10 +19,13 @@ The server uses Alembic/Flask-Migrate with PostgreSQL. Back up an existing datab
 | 12 | `c9f1d82b0008` | Persistent permission, role, and group management |
 | 13 | `d0a2e93c0009` | Payment transactions, receipt snapshots, loan policy, and session version |
 | 14 | `e47a2c9d0010` | Soft retire the obsolete `review:edit.any` permission; only authors may edit reviews |
+| 15 | `f5c2a16b0011` | Add a creation-time book description, defaulting existing books to an empty string |
 
 Run `flask --app app db upgrade REVISION` for each revision in the table. Afterward, `flask --app app db check` should report no pending schema changes. The review migration preserves legacy standalone entries as archived history. The access migration seeds the built-in permission keys and roles.
 
 The baseline revision makes a new database migratable from zero. Databases already at a later revision keep their current history; apply the new head normally. A clean in-memory SQLite upgrade through all revisions was verified on 2026-10-17. On 2026-10-18, the local PostgreSQL database was backed up, upgraded from `d0a2e93c0009` to `e47a2c9d0010`, and passed `flask db check` with no new upgrade operations. Repeat the backup, migration, and drift check against the actual deployment database before release.
+
+Apply `f5c2a16b0011` before running a server version that reads `Book.description`. Existing rows receive an empty description; `seed-demo` fills descriptions for its six catalog books without changing other records. Administrators enter descriptions when creating new books. The price-only update endpoint does not accept description changes.
 
 ## Payment snapshot migration: d0a2e93c0009
 

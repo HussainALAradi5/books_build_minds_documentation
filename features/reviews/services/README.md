@@ -6,7 +6,7 @@ Service functions return Flask responses unless described as an internal helper.
 
 | Service file | Signature | Business and code behavior | Errors and when they occur |
 | --- | --- | --- | --- |
-| `reviews/review_service.py` | `list_reviews(slug)` | Page visible reviews with comment search, minimum rating, and sort. | 400 invalid rating, sort, or page; 404 missing book |
+| `reviews/review_service.py` | `list_reviews(slug)` | Page active reviews by default. With `include_deleted=true`, verify the authenticated account has the administrator role, then include soft-deleted records while excluding archived records. | 400 invalid flag, rating, sort, or page; 401 unauthenticated; 403 non-administrator; 404 missing book |
 | `reviews/review_service.py` | `my_review(slug)` | Return the current user's active review for a book. | 404 missing book; 401/403 missing access |
 | `reviews/review_service.py` | `add_review(slug)` | Require purchase and one active review; validate rating 1–5 and a 10-character comment; broadcast change. | 400 invalid rating/comment; 403 no purchase; 404 book; 409 duplicate |
 | `reviews/review_service.py` | `owned_review(slug, review_id, own_permission: Permission, any_permission: Permission)` | Load a review and enforce author ownership or the administrator account role combined with the any-review permission. | 403 not author/administrator; 404 missing review |

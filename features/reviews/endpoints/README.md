@@ -4,7 +4,7 @@ All paths are relative to the Flask origin. The controller registers each route 
 
 | Method | Endpoint | Access rule | Service function | What happens | Exceptions / error responses |
 | --- | --- | --- | --- | --- | --- |
-| GET | `/api/book/<string:slug>/review` | `Public` | `review_service.list_reviews` | Page visible reviews with comment search, minimum rating, and sort. | 400 invalid rating, sort, or page; 404 missing book |
+| GET | `/api/book/<string:slug>/review` | `Public` for active reviews; administrator account role for `include_deleted=true` | `review_service.list_reviews` | Page active reviews by default. `include_deleted=true` includes soft-deleted reviews with their `is_deleted` flag; search, rating, sort, and pagination apply to the selected set. | 400 invalid flag, rating, sort, or page; 401 no session for deleted reviews; 403 non-administrator; 404 missing book |
 | GET | `/api/book/<string:slug>/review/mine` | `Permission.REVIEW_READ_OWN` | `review_service.my_review` | Return the current user's active review for a book. | 404 missing book; 401/403 missing access |
 | POST | `/api/book/<string:slug>/review` | `Permission.REVIEW_WRITE_ONE` | `review_service.add_review` | Require purchase and one active review; validate rating 1–5 and a 10-character comment; broadcast change. | 400 invalid rating/comment; 403 no purchase; 404 book; 409 duplicate |
 | PUT | `/api/book/<string:slug>/review/<int:review_id>` | `Permission.REVIEW_EDIT_OWN` plus author ownership | `review_service.edit_review` | Author updates their review and broadcasts the result. | 400 invalid rating/comment; 403 not author; 404 review |
