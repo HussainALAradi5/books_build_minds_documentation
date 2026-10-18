@@ -15,7 +15,7 @@ Each interface and enum has its own file in the corresponding `interfaces/ui`, `
 - Profile: `profile/tabs/ProfileTabs` combines Account, Loans, and Activity. Each tab has a separate component; account display logic is in `useProfileOverview`, and loan/activity state stays in the existing feature hooks.
 - Administration: `admin/tabs/AdminTabs` combines Inventory, Add book, Catalog, and Access requests.
 - Access management: `admin/access/tabs/AccessTabs` combines Permissions, Roles, Groups, and Users under the existing access provider.
-- Book detail: `books/tabs/BookTabs` combines Reviews, Author & publisher, and an administrator-only Edit book tab. Borrow, rent, and purchase actions remain visible above the tabs.
+- Book detail: `books/BookInformationTabs` places Book details and a combined read only Author & publisher tab beside the cover. `books/BookInfoCard` uses `GenericCard` to show publisher, publication date, ISBN, and condition near the title. Reviews remain below the header. Administrators open a compact price-only edit dialog from Book details.
 
 `GenericTabs` uses `lazyMount` and keeps visited panels mounted. A panel first mounts when visited; its form values and filters survive switching. Hidden panels use Chakra's default display hiding, so their existing effects remain active. Feature hooks own data refresh; switching tabs does not discard their state. Tab labels scroll horizontally on small screens.
 

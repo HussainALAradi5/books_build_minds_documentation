@@ -14,7 +14,7 @@ Service functions return Flask responses unless described as an internal helper.
 | `book_service.py` | `bulk_books()` | Archive, unarchive, or soft delete 1–100 selected books. | 400 invalid selection/action; 404 missing book; 409 active loan on delete |
 | `book_service.py` | `get_book(slug)` | Return an active, visible book by slug. | 404 book missing, archived, or deleted |
 | `book_service.py` | `create_book()` | Validate book input, resolve author and publisher, and insert a unique book. | 400 invalid fields; 409 duplicate title or ISBN; 401/403 missing access |
-| `book_service.py` | `update_book(slug)` | Edit supported fields while preserving unique names and active-loan capacity. | 400 invalid fields; 404 missing book; 409 duplicate or insufficient copies |
+| `book_service.py` | `update_book_price(slug)` | Lock an active book and change its price from a single-field `BookPriceInputDTO`. Reject all other book fields. The administrator-only controller emits a book-change event after saving. | 400 missing/extra fields or nonpositive price; 404 missing book; 401/403 missing access |
 | `book_service.py` | `delete_book(slug)` | Soft delete a book only when no copies are on active loan. | 404 missing book; 409 active loan; 401/403 missing access |
 | `book_service.py` | `purchase_book(slug)` | Legacy unpaid purchase disabled; use verified transaction checkout. | 409 use checkout |
 

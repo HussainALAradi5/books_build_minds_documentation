@@ -8,10 +8,10 @@ Service functions return Flask responses unless described as an internal helper.
 | --- | --- | --- | --- |
 | `author_service.py` | `list_authors()` | Page active authors with server search and sort. | 400 invalid page or sort |
 | `author_service.py` | `get_author(author_id)` | Return an author and associated works. | 404 author missing |
-| `author_service.py` | `save_author(author_id)` | Create or edit an author, description, country, and work links. | 400 invalid data; 404 missing author/country; 409 duplicate; 401/403 missing access |
+| `author_service.py` | `save_author()` | Create an author with description and country. The profile cannot be changed after creation. | 400 invalid data; 404 missing country; 409 duplicate; 401/403 missing access |
 | `publisher_service.py` | `list_publishers()` | Page active publishers with server search and sort. | 400 invalid page or sort |
 | `publisher_service.py` | `get_publisher(publisher_id)` | Return a publisher and associated works. | 404 publisher missing |
-| `publisher_service.py` | `save_publisher(publisher_id)` | Create or edit publisher details and country association. | 400 invalid data; 404 missing publisher/country; 409 duplicate; 401/403 missing access |
+| `publisher_service.py` | `save_publisher()` | Create a publisher with description and country. The profile cannot be changed after creation. | 400 invalid data; 404 missing country; 409 duplicate; 401/403 missing access |
 | `country_service.py` | `list_countries()` | Page countries stored in the local database. | 400 invalid page or sort |
 | `country_service.py` | `sync_countries()` | Fetch countries from the provider and upsert local records. | 400/502 provider or payload failure; 401/403 missing access |
 
