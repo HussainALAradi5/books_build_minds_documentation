@@ -16,6 +16,8 @@
 
 Tabs and guides provide no authorization. Hiding a tab does not stop a direct API call, and a disabled button is not an access check. Guide content is authored as plain strings and rendered as text; no HTML parsing is used. The guide never invokes a mutation service.
 
+Password recovery sends a six-digit code only to the saved email. The server stores an HMAC digest, expires codes after 10 minutes, allows one use and five guesses, applies per-IP limits plus a one-minute per-account resend interval, and returns the same request message for known and unknown accounts. A successful reset increments `token_version`, invalidating earlier JWTs. Console code delivery is explicitly local-only and forbidden in production. Provider secrets remain in the server environment; mobile numbers are identifiers and do not receive SMS.
+
 Custom roles may grant supported read or member actions. They do not promote the account role. Review edits still require authorship, review moderation deletion still requires authorship or the admin role, and book changes require the admin role. Access management itself always requires the admin account role.
 
 Uploaded images are served as public static media. They must not contain confidential information. An image disappearing from a UI or a soft-deleted record does not revoke access to an already known static file URL.

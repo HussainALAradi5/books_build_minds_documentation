@@ -16,3 +16,4 @@ The client sends requests through typed services and one shared API client. Prot
 - [API contract, filters, and errors](api-contract.md)
 - [Access control and ownership](access-control.md)
 - [Feature service and endpoint maps](../README.md)
+- [Planned Flutter mobile architecture](../mobile/README.md)

@@ -4,10 +4,12 @@ All paths are relative to the Flask origin. The controller registers each route 
 
 | Method | Endpoint | Access rule | Service function | What happens | Exceptions / error responses |
 | --- | --- | --- | --- | --- | --- |
-| POST | `/api/register` | `Public` | `account_service.register` | Validate identity and password, create an active client account, and record its creator. | 400 invalid input; 409 duplicate username or email |
-| POST | `/api/login` | `Public` | `account_service.login` | Verify an active account and password, then issue a JWT. | 401 invalid credentials or inactive account |
+| POST | `/api/register` | `Public` | `account_service.register` | Validate username, email, optional E.164 mobile number and required password; create an active client account. | 400 invalid input; 409 duplicate username, email, or mobile |
+| POST | `/api/login` | `Public` | `account_service.login` | Verify an active account by email, username, or mobile number plus required password; issue a JWT. | 401 invalid credentials or inactive account |
+| POST | `/api/password-reset/request` | `Public`, rate limited | `password_reset_service.issue_code` | Accept `identifier` (email, username, or mobile); send a six-digit code to the saved email, never in the response. Return the same message for known and unknown accounts. | 400 empty identifier; 503 delivery not configured; 429 rate limit |
+| POST | `/api/password-reset/confirm` | `Public`, rate limited | `password_reset_service.confirm_code` | Accept `identifier`, `code`, and `new_password`; consume the valid code, replace the password, and invalidate existing JWTs. | 400 invalid/expired/used code or weak password; 429 rate limit |
 | GET | `/api/profile/<int:user_id>` | `Permission.PROFILE_READ_OWN` | `account_service.profile` | Return the authenticated user's profile and effective permissions. | 403 other user's profile |
-| PUT | `/api/profile/<int:user_id>/edit` | `Permission.PROFILE_EDIT_OWN` | `account_service.edit_profile` | Update own identity or password; reject role and account status changes. | 400 invalid fields; 403 other user or role change; 409 duplicate identity |
+| PUT | `/api/profile/<int:user_id>/edit` | `Permission.PROFILE_EDIT_OWN` | `account_service.edit_profile` | Update own identity, optional mobile number, or password; reject role and account status changes. | 400 invalid fields; 403 other user or role change; 409 duplicate identity |
 | GET | `/api/profile/<int:user_id>/books` | `Permission.PURCHASE_READ_OWN` | `account_service.purchased_books` | Filter the user's purchases on the server and return a page. | 400 invalid page or sort; 403 other user |
 | GET | `/api/profile/<int:user_id>/activities` | `Permission.ACTIVITY_READ_OWN` | `account_service.list_activities` | Page the user's library actions with optional action filter. | 400 invalid action or page; 403 other user |
 | GET | `/api/admin-requests` | `Permission.ADMIN_REQUEST_READ_ANY` | `account_service.list_admin_requests` | Page administrator access requests by decision state. | 400 invalid status or page; 401/403 missing access |
