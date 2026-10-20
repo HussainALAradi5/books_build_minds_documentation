@@ -1,6 +1,6 @@
 # Flutter mobile application — implementation plan
 
-This is the **planning specification** for a future Flutter client. No Flutter repository or mobile application is claimed here. The existing [Flask server](../architecture/README.md) remains the source of truth for catalog data, prices, stock, roles, permissions, loans, transactions, receipts, reviews, and media. The Next.js client is a design and behavior reference, not a mobile API gateway.
+This is the mobile implementation guide for the [Flutter client](https://github.com/HussainALAradi5/books_build_minds_mobile). The existing [Flask server](../architecture/README.md) remains the source of truth for catalog data, prices, stock, roles, permissions, loans, transactions, receipts, reviews, and media. The Next.js client is a design and behavior reference, not a mobile API gateway. Sections describing uploads, full administration, and release checks are future scope unless the mobile README says they are implemented.
 
 ## Goals and boundaries
 
@@ -23,11 +23,11 @@ This is the **planning specification** for a future Flutter client. No Flutter r
 
 | Document | Purpose |
 | --- | --- |
-| [Project structure](architecture/project-structure.md) | Feature folders, classes, interfaces, models, enums, and dependency rules |
+| [Project structure](architecture/project-structure.md) | Parent layer folders, domain subfolders, DTOs, interfaces, middleware, models, and enums |
 | [Models and enums](architecture/models-and-enums.md) | Typed entity inventory, lifecycle fields, values, labels, and semantic colors |
 | [API and data contracts](architecture/api-contracts.md) | Base URL, authentication, DTO mapping, service boundaries, errors, and endpoint map |
 | [Reusable widgets and state](architecture/widgets-and-state.md) | Generic cards, filters, lists, forms, dialogs, upload, progress, tabs, and controllers |
 | [Features and workflows](features/README.md) | Screen map, role visibility, and step-by-step library actions |
 | [Security and verification](security-and-verification.md) | Mobile token handling, protected actions, accessibility, responsive checks, and release gates |
 
-Implementation should begin only after the API contract and test environment are confirmed against a running Flask server. Use the [existing endpoint documentation](../README.md#features) for route-specific business rules and errors.
+Use the [existing endpoint documentation](../README.md#features) for route-specific business rules and errors. Confirm mobile journeys against a running Flask server before treating them as release ready.

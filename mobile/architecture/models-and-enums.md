@@ -1,6 +1,6 @@
 # Flutter models, contracts, and enums
 
-Model this app from the **actual Flask JSON**, not from database tables or screenshots. `data/contracts/` contains backend-shaped requests and responses; `domain/models/` contains stable app-facing classes. A mapper makes the boundary explicit. One class or enum should have one named file when it has independent meaning; small private helpers may stay beside their owner.
+Model this app from the **actual Flask JSON**, not from database tables or screenshots. The implemented tree keeps backend request shapes in `lib/dtos/{domain}/`, stable app records in `lib/models/{domain}/`, and enum values with labels/colors in `lib/enums/{domain}/`. API and service classes form the mapping boundary. One class or enum should have one named file when it has independent meaning; small private helpers may stay beside their owner.
 
 ## First model inventory
 

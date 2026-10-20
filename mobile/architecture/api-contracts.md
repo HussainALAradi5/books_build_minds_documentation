@@ -4,16 +4,16 @@ Flutter calls the **Flask origin directly**, not Next.js server functions. The c
 
 ## Shared client contract
 
-`ApiClient` provides typed `get`, `post`, `put`, `patch`, `delete`, multipart upload, and file download operations. It adds the bearer token only to protected requests, applies timeouts, converts JSON and error envelopes, and returns typed failures. A caller can cancel stale search requests. Never log passwords, reset codes, authorization headers, payment URLs, or personal response bodies.
+The implemented `ApiClient` provides JSON `get`, `post`, `put`, `patch`, and `delete` through `ApiTransport`. `AuthHeaderMiddleware` adds the bearer token only to protected requests and rejects a missing token before opening a connection. The client applies timeouts and maps network/HTTP errors to `ApiFailure`. The catalog controller ignores stale search results; the transport does not yet cancel in-flight requests. Multipart upload and authenticated file download remain future work. Never log passwords, reset codes, authorization headers, payment URLs, or personal response bodies.
 
 | Shared type | Fields and behavior |
 | --- | --- |
-| `PaginationQuery` | `page`, `perPage` (positive, endpoint limit respected) |
-| `FilterQuery extends PaginationQuery` | Optional `query`, `sortBy`, `sortDirection`; feature filters extend this contract |
+| `PaginationFilter` | `page`, `perPage`, `sortDirection`; maps to validated server query keys |
+| `BookFilter`, `LoanFilter`, `ReviewFilter` | Extend `PaginationFilter` and add only their endpoint-specific options |
 | `SortDirection` | `asc`, `desc`, with one mapper to `sort_direction` |
-| `Page<T>` | `items`, `pagination` mapped from the server page envelope |
-| `ApiFailure` | Status, safe message, optional field errors; distinguish offline/timeout from HTTP errors |
-| `Session` | Server `user_id` and JWT plus profile/effective permissions loaded from the server |
+| `PageResult<T>` | `items`, `pagination` mapped from the server page envelope |
+| `ApiFailure` | Status and safe message; distinguishes network/timeout failures from HTTP errors |
+| `LoginResult` and `UserProfile` | Server `user_id` and JWT plus profile/effective permissions loaded from the server |
 
 The JSON mapper converts only at the edge: `perPage ↔ per_page`, `sortDirection ↔ sort_direction`, `requestKey ↔ request_key`, `createdAt ↔ created_at`, and so on. Use explicit mappings or generated serializers with golden payload tests; Dart reflection cannot turn an interface into runtime field names. Preserve money in **integer minor units** for checkout and display BHD to three decimal places; never use a floating-point amount for a payment request.
 
@@ -21,7 +21,7 @@ Flask returns `{"error":"..."}` on failures. Treat `400` as validation, `401` as
 
 ## Service-to-endpoint map
 
-Paths below are appended to `/api`. Their detailed input, permissions, business rules, and exceptions remain in the linked server endpoint references.
+Paths below are appended to `/api`. This table is the **full server contract inventory**, including endpoints the mobile app has not implemented. The current mobile APIs cover authentication, catalog reads, book detail/print URL, borrow/return, sandbox checkout/sync, reviews, profile lists, admin inventory/price, and read-only access lists. Mobile media uploads, receipt downloads, full catalog administration, transaction cancel/detail, and access writes are not yet implemented; the web client remains their UI. Detailed input, permissions, business rules, and exceptions remain in the linked server endpoint references.
 
 | Mobile service | Server endpoints | Notes |
 | --- | --- | --- |
@@ -36,7 +36,7 @@ Paths below are appended to `/api`. Their detailed input, permissions, business 
 | `ReceiptService` | `GET /transactions/{id}/receipt`, `/book/{slug}/receipt` | Authenticated PDF stream, displayed or shared with platform controls. [Receipts](../../features/receipts/endpoints/README.md), [payments](../../features/payments/endpoints/README.md) |
 | `AccessService` | Permission, role, group, and assignment routes | Administrator account role **and** matching permission. [Access](../../features/access/endpoints/README.md) |
 
-Book PDF, QR, and barcode routes are listed in [printing](../../features/books/printing/README.md). The server creates these assets; the Flutter app renders or downloads them. Book/review Socket.IO events may refresh an open book view, but the REST response remains authoritative. Confirm event names and authentication policy before wiring the socket client.
+Book PDF, QR, and barcode routes are listed in [printing](../../features/books/printing/README.md). The server creates these assets; the mobile app currently opens the public book PDF URL through `BookDetailService`. QR/barcode display and Socket.IO subscriptions are not yet wired in Flutter. REST responses remain authoritative.
 
 ## Authentication boundary
 
