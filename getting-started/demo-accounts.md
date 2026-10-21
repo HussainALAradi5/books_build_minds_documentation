@@ -2,6 +2,8 @@
 
 Run `python -m flask --app app seed-demo --test-accounts` from the [server repository](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) after migrations. This development-only command updates the three active demo passwords to the values below. The seed command refuses to run when `APP_ENV=production`.
 
+To refresh missing book descriptions and author/publisher profile details later without changing existing demo passwords, run `python -m flask --app app seed-demo` with no flags. Existing nonempty catalog profile fields are preserved.
+
 | Account role | Username | Password | What to test |
 | --- | --- | --- | --- |
 | Administrator | `demo_admin` | `LibraryAdmin2026!` | Book and catalog editing, inventory import/export/bulk actions, access requests, permission/role/group management |

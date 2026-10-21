@@ -30,6 +30,8 @@ Apply `f5c2a16b0011` before running a server version that reads `Book.descriptio
 
 Apply `c6d4e27a0012` before enabling mobile login or password recovery. It keeps existing mobile numbers empty and creates the reset-code table. Configure Resend or explicit development console delivery; migration does not send email. Test the upgrade and schema check on a database copy before deploying.
 
+On 21 October 2026, the configured local PostgreSQL database was backed up, upgraded individually from `e47a2c9d0010` to `f5c2a16b0011` and then to `c6d4e27a0012`, and passed `flask db check`. The backup is outside the repositories at `D:/IT/Projects/books_builds_minds/server-backups/before-mobile-migrations-20261021-113748.dump`. This does not establish that another deployment database is upgraded.
+
 ## Payment snapshot migration: d0a2e93c0009
 
 Follows `c9f1d82b0008`. Creates transaction/event tables; adds immutable receipt snapshots, transaction references, loan policy version and user token version. Existing receipt amounts stay NULL because historical payment values cannot be reconstructed reliably. Upgrade and schema drift checks were exercised on a disposable PostgreSQL clone of the previous schema, including downgrade/re-upgrade. Downgrade refuses once financial transactions exist.

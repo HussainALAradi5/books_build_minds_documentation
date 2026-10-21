@@ -25,7 +25,7 @@ Paths below are appended to `/api`. This table is the **full server contract inv
 
 | Mobile service | Server endpoints | Notes |
 | --- | --- | --- |
-| `AuthService` | `POST /login`, `/register`, `/password-reset/request`, `/password-reset/confirm` | Login accepts email, username, or optional mobile identifier plus password; reset code goes to saved email. [Accounts](../../features/accounts/endpoints/README.md) |
+| `AuthService` | `POST /login`, `/register`, `/password-reset/request`, `/password-reset/confirm` | Login accepts email, username, or registered mobile number plus password. Registration can include a normalized international `mobile_number`; reset code goes to saved email. [Accounts](../../features/accounts/endpoints/README.md) |
 | `ProfileService` | `GET /profile/{userId}`, `PUT /profile/{userId}/edit`, `GET /profile/{userId}/books`, `/activities` | Own resources only; use server pagination. [Accounts](../../features/accounts/endpoints/README.md) |
 | `BookService` | `GET /`, `/book/{slug}`, `/book/export`, `/book/manage`; admin `POST /book`, `/book/import`, `/book/bulk`, `PATCH /book/{slug}/price`, `DELETE /book/{slug}` | Catalog filters/sort/page run on server. Existing books change price only. [Books](../../features/books/endpoints/README.md) |
 | `CatalogReferenceService` | `GET /authors`, `/authors/{id}`, `/publishers`, `/publishers/{id}`, `/countries`; admin create/sync routes | Existing author and publisher profiles are read only. [Catalog](../../features/catalog/endpoints/README.md) |

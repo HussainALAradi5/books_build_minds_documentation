@@ -15,4 +15,6 @@ Service functions return Flask responses unless described as an internal helper.
 | `country_service.py` | `list_countries()` | Page countries stored in the local database. | 400 invalid page or sort |
 | `country_service.py` | `sync_countries()` | Fetch countries from the provider and upsert local records. | 400/502 provider or payload failure; 401/403 missing access |
 
+The development-only `seed-demo` command calls `enrich_demo_catalog()` from `services/catalog/demo_catalog_service.py`. It creates the demo countries, authors, and publishers and fills missing descriptions or country codes. Existing nonempty profile fields are preserved. This helper is not an HTTP endpoint and does not run in production.
+
 See [endpoint mapping](../endpoints/README.md) and [shared response rules](../../../architecture/api-contract.md).

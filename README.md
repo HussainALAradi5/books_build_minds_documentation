@@ -53,6 +53,7 @@ The seeded `demo_visitor` account is inactive and has no login password. Anonymo
 - [Database migrations](database/migrations.md)
 - [Local setup](getting-started/README.md)
 - [Verification](testing/verification.md)
+- [Current web, server, and mobile compatibility check](testing/compatibility-2026-10-21.md)
 - [Screenshots](screenshots/README.md)
 - [Third-party and external APIs](integrations/external-apis.md)
 - [Flutter mobile application plan](mobile/README.md)
