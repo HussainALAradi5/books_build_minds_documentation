@@ -1,6 +1,6 @@
 # Verification
 
-For the latest cross-client results and outstanding release checks, see [21 October 2026 compatibility check](compatibility-2026-10-21.md). The dated records below are historical.
+For the latest local checks, see [22 October 2026 release verification](compatibility-2026-10-22.md). The dated records below are historical.
 
 From `server`, run the unit/API tests and the migration drift check:
 
