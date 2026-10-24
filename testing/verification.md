@@ -1,6 +1,6 @@
 # Verification
 
-For the latest local checks, see [22 October 2026 release verification](compatibility-2026-10-22.md). The dated records below are historical.
+For the latest local checks, see [24 October 2026 compatibility and security review](compatibility-2026-10-24.md). The dated records below are historical.
 
 From `server`, run the unit/API tests and the migration drift check:
 

@@ -1,6 +1,6 @@
 # Books Builds Minds documentation
 
-This repository documents the separate [client](https://github.com/HussainALAradi5/books_build_minds_client_side/blob/main/README.md) and [server](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) repositories in a sibling checkout. Each feature has subfolders for service signatures, business rules, endpoint mappings, and errors.
+This repository documents the [Next.js client](https://github.com/HussainALAradi5/books_build_minds_client_side/blob/main/README.md), [Flask server](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md), and [Flutter mobile app](https://github.com/HussainALAradi5/books_build_minds_mobile/blob/main/README.md) in separate repositories. Each feature has subfolders for service signatures, business rules, endpoint mappings, and errors.
 
 ## Related repositories
 
@@ -8,6 +8,7 @@ This repository documents the separate [client](https://github.com/HussainALArad
 | --- | --- | --- |
 | Documentation | This repository | Guides, service references, endpoint tables, and error cases |
 | Client | [Open client repository](https://github.com/HussainALAradi5/books_build_minds_client_side/blob/main/README.md) | Next.js UI and workflow screenshots |
+| Mobile | [Open Flutter repository](https://github.com/HussainALAradi5/books_build_minds_mobile/blob/main/README.md) | Mobile UI, typed API services, tests, and screenshots |
 | Server | [Open server repository](https://github.com/HussainALAradi5/books_build_minds_server/blob/main/README.md) | Flask API, PostgreSQL models, migrations, and demo accounts |
 
 The related repository links point to the published GitHub repositories.
@@ -53,7 +54,7 @@ The seeded `demo_visitor` account is inactive and has no login password. Anonymo
 - [Database migrations](database/migrations.md)
 - [Local setup](getting-started/README.md)
 - [Verification](testing/verification.md)
-- [Current web, server, and mobile compatibility check](testing/compatibility-2026-10-21.md)
+- [Current web, server, and mobile compatibility check](testing/compatibility-2026-10-24.md)
 - [Screenshots](screenshots/README.md)
 - [Third-party and external APIs](integrations/external-apis.md)
-- [Flutter mobile application plan](mobile/README.md)
+- [Flutter mobile application guide](mobile/README.md)
