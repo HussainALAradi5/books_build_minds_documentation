@@ -1,6 +1,6 @@
 # Flutter mobile application — implementation guide
 
-This is the mobile implementation guide for the [Flutter client](https://github.com/HussainALAradi5/books_build_minds_mobile). The existing [Flask server](../architecture/README.md) remains the source of truth for catalog data, prices, stock, roles, permissions, loans, transactions, receipts, reviews, and media. The Next.js client is a design and behavior reference, not a mobile API gateway. Sections describing uploads, full administration, and release checks are future scope unless the mobile README says they are implemented.
+This is the mobile implementation guide for the [Flutter client](https://github.com/HussainALAradi5/books_build_minds_mobile). The existing [Flask server](../architecture/README.md) remains the source of truth for catalog data, prices, stock, roles, permissions, loans, transactions, receipts, reviews, and media. The Next.js client is a design and behavior reference, not a mobile API gateway. Follow the mobile repository README for current implementation and verification status.
 
 ## Goals and boundaries
 

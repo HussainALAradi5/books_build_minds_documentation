@@ -35,4 +35,4 @@ The server remains the authority for role, ownership, stock, price, terms, payme
 5. Add transaction **sandbox** flow with reconciliation, then administrator screens and file import/export.
 6. Complete the verification matrix, accessibility review, responsive screenshots, and documentation updates. Only then consider a mobile release decision.
 
-This document is a plan. It does not mean the mobile application or a live payment integration has been built or tested.
+This matrix is both an implementation guide and a release checklist. The Flutter application is implemented and has analyzer/unit tests. A local Android build and physical device walkthrough must still pass before a mobile release claim. Live payment integration remains outside this project.

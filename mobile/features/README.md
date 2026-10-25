@@ -40,12 +40,12 @@ There is no separate `sell` endpoint or seller listing contract in the documente
 
 - A signed-in purchaser may create one active review with rating 1–5, a comment of at least 10 characters, and optional description. The server decides purchase eligibility. Inline editing uses the same card/form area; only the review author can edit. The author or administrator can confirm a soft delete. Deleted reviews remain hidden publicly; the admin-only toggle requests `include_deleted=true`.
 - Profile tabs show account, photo, owned books, loans, transactions, and activity. Each tab has its own controller and server page/filter state. Changing tabs keeps draft and filter state. Refresh only the affected tab after a mutation.
-- Profile image selection supports preview, pinch zoom, and upload progress; only the server-validated result becomes the profile picture.
+- Profile image selection checks type and size, then uploads through the server; only the server-validated result becomes the profile picture. Book gallery images open with pinch zoom.
 
 ## Administrator workflows
 
-- Inventory: server-paged list/grid with filters; export PDF/XLSX/CSV, import a supported table, and bulk archive/unarchive/soft delete within server limits. Show row-level import errors and require confirmation for destructive bulk actions.
+- Inventory: server-paged grid/list with server search/filter, Excel/PDF/CSV export, CSV/XLSX import, and bulk archive/unarchive/soft delete within server limits. Require confirmation for destructive bulk actions. Row-level import error reporting remains a web-only control.
 - Catalog: create books and separate author/publisher records with selected countries. After creation, an existing book's **price only** is editable. Existing author and publisher profiles remain read only.
-- Access: separate tabs for permissions, roles, groups, and user assignments. The UI may explain `AND`/`OR` permission composition, but the server evaluates it. Confirm access changes and refetch effective grants.
+- Access: separate tabs for permissions, roles, groups, and user assignments, with create/edit controls and confirmed soft delete where supported. The server evaluates `AND`/`OR` permission composition and rejects forbidden assignments. Reopen the current page after a successful change to refresh records.
 
 For every screen, document loading, empty, validation, offline, denied, conflict, and success states before implementation. Use the linked [service and endpoint reference](../../README.md#features) to keep behavior aligned.
