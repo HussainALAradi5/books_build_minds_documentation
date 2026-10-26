@@ -21,6 +21,8 @@ The server uses Alembic/Flask-Migrate with PostgreSQL. Back up an existing datab
 | 14 | `e47a2c9d0010` | Soft retire the obsolete `review:edit.any` permission; only authors may edit reviews |
 | 15 | `f5c2a16b0011` | Add a creation-time book description, defaulting existing books to an empty string |
 | 16 | `c6d4e27a0012` | Add an optional unique mobile number and expiring password reset codes |
+| 17 | `a6f3b41c0012` | Add optional author and publisher addresses |
+| 18 | `b7c8d9e00013` | Create categories and book-category links; assign existing books General |
 
 Run `flask --app app db upgrade REVISION` for each revision in the table. Afterward, `flask --app app db check` should report no pending schema changes. The review migration preserves legacy standalone entries as archived history. The access migration seeds the built-in permission keys and roles.
 
@@ -29,6 +31,8 @@ The baseline revision makes a new database migratable from zero. Databases alrea
 Apply `f5c2a16b0011` before running a server version that reads `Book.description`. Existing rows receive an empty description; `seed-demo` fills descriptions for its six catalog books without changing other records. Administrators enter descriptions when creating new books. The price-only update endpoint does not accept description changes.
 
 Apply `c6d4e27a0012` before enabling mobile login or password recovery. It keeps existing mobile numbers empty and creates the reset-code table. Configure Resend or explicit development console delivery; migration does not send email. Test the upgrade and schema check on a database copy before deploying.
+
+Apply `a6f3b41c0012` before clients send creator addresses, then `b7c8d9e00013` before clients read or assign categories. The second revision creates General and associates existing books with it. Back up production data first and run each revision separately. The local PostgreSQL database was upgraded in this order and passed `flask db check`; other databases need their own upgrade and verification.
 
 On 21 October 2026, the configured local PostgreSQL database was backed up, upgraded individually from `e47a2c9d0010` to `f5c2a16b0011` and then to `c6d4e27a0012`, and passed `flask db check`. The backup is outside the repositories at `D:/IT/Projects/books_builds_minds/server-backups/before-mobile-migrations-20261021-113748.dump`. This does not establish that another deployment database is upgraded.
 

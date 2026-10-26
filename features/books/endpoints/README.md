@@ -4,8 +4,8 @@ All paths are relative to the Flask origin. The controller registers each route 
 
 | Method | Endpoint | Access rule | Service function | What happens | Exceptions / error responses |
 | --- | --- | --- | --- | --- | --- |
-| GET | `/api/` | `Public` | `book_service.list_books` | Return visible books with server pagination and sorting. | 400 invalid filter, page, or sort |
-| POST | `/api/book` | `Admin role AND Permission.BOOK_WRITE_ONE` | `book_service.create_book` | Validate book input, including an optional description up to 4,000 characters, resolve author and publisher, and insert a unique book. | 400 invalid fields; 409 duplicate title or ISBN; 401/403 missing access |
+| GET | `/api/` | `Public` | `book_service.list_books` | Return visible books with server pagination, category slug filter, and `most_rated` or `best_selling` ranking. | 400 invalid filter, page, or sort |
+| POST | `/api/book` | `Admin role AND Permission.BOOK_WRITE_ONE` | `book_service.create_book` | Validate book input, including an optional description up to 4,000 characters; resolve existing author, publisher, and one to five category IDs; insert a unique book. | 400 invalid fields or missing references; 409 duplicate title or ISBN; 401/403 missing access |
 | GET | `/api/book/export` | Signed-in user | `book_service.export_books` | Export visible, nondeleted, nonarchived books as PDF, XLSX, or CSV. Catalog filters apply; optional comma-separated `ids` restricts output to 1–100 selected books. Up to 5,000 rows are returned. | 400 unsupported format/filter or invalid IDs; 401 missing session |
 | GET | `/api/book/manage` | `Permission.BOOK_READ_ANY` | `book_service.list_managed_books` | Return nondeleted books including archived items for inventory management. | 400 invalid filter, page, or sort; 401/403 missing access |
 | POST | `/api/book/import` | `Admin role AND Permission.BOOK_IMPORT` | `book_service.import_books` | Validate tabular rows, resolve authors and publishers, and commit imported books. | 400 malformed file or row; duplicate title or ISBN; 401/403 missing access |

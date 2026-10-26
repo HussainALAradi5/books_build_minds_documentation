@@ -9,7 +9,7 @@ The implemented `ApiClient` provides JSON `get`, `post`, `put`, `patch`, and `de
 | Shared type | Fields and behavior |
 | --- | --- |
 | `PaginationFilter` | `page`, `perPage`, `sortDirection`; maps to validated server query keys |
-| `BookFilter`, `LoanFilter`, `ReviewFilter` | Extend `PaginationFilter` and add only their endpoint-specific options |
+| `CatalogSearchFilter`, `BookFilter`, `LoanFilter`, `ReviewFilter` | Extend `PaginationFilter` and add only their endpoint-specific options; catalog profile/category pickers request pages from the server |
 | `SortDirection` | `asc`, `desc`, with one mapper to `sort_direction` |
 | `PageResult<T>` | `items`, `pagination` mapped from the server page envelope |
 | `ApiFailure` | Status and safe message; distinguishes network/timeout failures from HTTP errors |
@@ -27,8 +27,8 @@ Paths below are appended to `/api`. Flutter now has typed services for media upl
 | --- | --- | --- |
 | `AuthService` | `POST /login`, `/register`, `/password-reset/request`, `/password-reset/confirm` | Login accepts email, username, or registered mobile number plus password. Registration can include a normalized international `mobile_number`; reset code goes to saved email. [Accounts](../../features/accounts/endpoints/README.md) |
 | `ProfileService` | `GET /profile/{userId}`, `PUT /profile/{userId}/edit`, `GET /profile/{userId}/books`, `/activities` | Own resources only; use server pagination. [Accounts](../../features/accounts/endpoints/README.md) |
-| `BookService` | `GET /`, `/book/{slug}`, `/book/export`, `/book/manage`; admin `POST /book`, `/book/import`, `/book/bulk`, `PATCH /book/{slug}/price`, `DELETE /book/{slug}` | Catalog filters/sort/page run on server. Existing books change price only. [Books](../../features/books/endpoints/README.md) |
-| `CatalogReferenceService` | `GET /authors`, `/authors/{id}`, `/publishers`, `/publishers/{id}`, `/countries`; admin create/sync routes | Existing author and publisher profiles are read only. [Catalog](../../features/catalog/endpoints/README.md) |
+| `BookService` | `GET /`, `/book/{slug}`, `/book/export`, `/book/manage`; admin `POST /book`, `/book/import`, `/book/bulk`, `PATCH /book/{slug}/price`, `DELETE /book/{slug}` | Catalog filters/sort/page run on server, including category slug, most-rated, and best-selling choices. Creation selects existing author, publisher, and up to five categories. Existing books change price only. [Books](../../features/books/endpoints/README.md) |
+| `CatalogReferenceService` | `GET /authors`, `/authors/{id}`, `/publishers`, `/publishers/{id}`, `/categories`, `/categories/top`, `/countries`; admin create/sync routes | Search and page profile and category choices; creator address is optional. Category showcase returns up to five books per category. Existing author and publisher profiles are read only. [Catalog](../../features/catalog/endpoints/README.md) |
 | `LoanService` | `GET /book/{slug}/quote`, `/book/{slug}/loan`, `POST /book/{slug}/borrow`, `/book/{slug}/return`, `GET /profile/{userId}/loans` | Terms and quote must be current; the legacy unpaid `/rent` route rejects. [Loans](../../features/loans/endpoints/README.md) |
 | `TransactionService` | `POST /transactions/checkout`, `GET /transactions`, `/transactions/{id}`, `POST /transactions/{id}/sync`, `/cancel` | Hosted **sandbox** checkout; trust verified server status, not redirect data. [Payments](../../features/payments/endpoints/README.md) |
 | `ReviewService` | `GET /book/{slug}/review`, `/mine`, `POST /book/{slug}/review`, `PUT`/`DELETE /book/{slug}/review/{id}` | Purchase-gated write; author edit; author/admin soft delete. [Reviews](../../features/reviews/endpoints/README.md) |
